@@ -23,10 +23,20 @@ def send_to_kafka(entities_count):
     producer.send('topic2', value=entities_count)
     producer.flush()  
 
+excluded_labels = {
+    "CARDINAL", 
+    "ORDINAL",   
+    "DATE",      
+    "TIME",     
+    "QUANTITY",  
+    "PERCENT",   
+    "MONEY",     
+}
+
 # Extract named entities and update global entity counter
 def extract_and_update_entities(text, global_entity_count):
     doc = nlp(text)
-    entities = [ent.text for ent in doc.ents if ent.label_ == "PERSON"]
+    entities = [ent.text for ent in doc.ents if ent.label_ not in excluded_labels]
     for entity in entities:
         global_entity_count[entity] += 1
 

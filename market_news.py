@@ -16,7 +16,7 @@ topic = 'topic1'
 while True:
     try:
         # Call the finnhub API to receive all general news
-        news_response = finnhub_client.general_news('general', min_id=0)
+        news_response = finnhub_client.general_news('crypto', min_id=0)
         
         for article in news_response:
             # Get the headline of each news article
